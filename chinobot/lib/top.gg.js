@@ -5,7 +5,7 @@ const server = http.createServer(app);
 const topToken = process.env["top_token"]
 ///////// TOP.gg //////////////////////
 const DBL = require("dblapi.js");
-module.exports.main = function(client) {
+module.exports.main = function (client) {
     const dbl = new DBL(topToken, { webhookPort: 5000, webhookAuth: 'ChinoBot', webhookServer: server }, client);
     try {
         dbl.on('posted', () => {
@@ -13,7 +13,7 @@ module.exports.main = function(client) {
             return;
         })
     } catch (error) { return; }
-    
+
     dbl.on('error', e => {
         console.log(`錯誤! ${e}`);
         return

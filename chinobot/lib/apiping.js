@@ -1,7 +1,8 @@
-module.exports.ping = function(bot,reply) {
-    bot.api.interactions(reply.id,reply.token).callback.post({
+module.exports.ping = function (bot, reply) {
+    bot.api.interactions(reply.id, reply.token).callback.post({
         data: {
-        type: 6
-    }})
+            type: 6
+        }
+    })
     return;
 }

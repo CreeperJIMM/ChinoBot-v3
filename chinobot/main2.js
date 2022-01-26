@@ -14,7 +14,7 @@ start()
 
 function start() {
     //Discord
-    const client = new Client({intents: [Intents.FLAGS.GUILDS,"GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES",/*"GUILD_PRESENCES","GUILD_MEMBERS",*/"GUILD_VOICE_STATES"] })
+    const client = new Client({ intents: [Intents.FLAGS.GUILDS, "GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES",/*"GUILD_PRESENCES","GUILD_MEMBERS",*/"GUILD_VOICE_STATES"] })
     const { DiscordTogether } = require('discord-together');
     client.discordTogether = new DiscordTogether(client);
     //Mongo
@@ -35,7 +35,7 @@ function start() {
     setInterval(() => {
         client.UserCache.clear()
         client.GuildCache.clear()
-      }, 60000);
+    }, 60000);
     //definition
     client.prefix = prefix
     client.version = version
@@ -44,7 +44,7 @@ function start() {
     //bot satus
     let onlineSET = require("./lib/BotOnline")
     client.once('ready', async () => {
-        onlineSET.main1(client,2,clientDB)
+        onlineSET.main1(client, 2, clientDB)
         return console.log(`智乃機器人2號讀取成功! 版本: ${version} Time: ` + new Date().toUTCString());
     });
     //event
@@ -63,13 +63,13 @@ function start() {
             w = function (fun) {
                 return function (...a) {
                     try {
-                        fun(client,clientDB, ...a)
+                        fun(client, clientDB, ...a)
                     } catch (error) {
                         throw error;
                     }
                 }
             }
-            if(file.fit.indexOf(2) != -1) client[file.type](file.name, w(file.fun))
+            if (file.fit.indexOf(2) != -1) client[file.type](file.name, w(file.fun))
         } catch (error) {
             console.log(`file:${file.name}\nError:\n`)
             throw error;
@@ -91,7 +91,7 @@ function start() {
     });
     //Slash command
     let slash = require("./lib/slashCommand")
-    slash.main(client,clientDB,prefix)
+    slash.main(client, clientDB, prefix)
     //start bot
     console.log(`該程序目前總共使用了${Math.round((process.memoryUsage().heapUsed / 1024 / 1024) * 100) / 100}MB的RAM`)
     client.login(token);
