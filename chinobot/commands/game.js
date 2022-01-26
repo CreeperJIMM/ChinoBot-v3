@@ -5,7 +5,6 @@ const image = require('image-data-uri');
 const fs = require("fs");
 const osuToken = process.env["osu_token"]
 const hypixelToken = process.env["hypixel_token"]
-console.log(hypixelToken)
 const fetch = require("node-fetch");
 const osuApi = new osu.Api(osuToken, {
     // baseUrl: sets the base api url (default: https://osu.ppy.sh/api)

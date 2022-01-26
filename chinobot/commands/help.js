@@ -420,11 +420,11 @@ async function help(bot,message,language,args) {
 }
 function newcmd(bot,message,language,args) {
     let lang = lan.zh_TW,h = helpX.zh_TW
-    let p = client.prefix
+    let p = bot.prefix
     if(language === "zh_TW") {lang = lan.zh_TW;h = helpX.zh_TW}else if(language === "zh_CN") {lang = lan.zh_CN;h = helpX.zh_CN}else if(language === "ja_JP") {lang = lan.ja_JP;h = helpX.ja_JP
     }else if(language === "en_US") {lang = lan.en_US;h = helpX.en_US}
     let command = {}
-    let commandfiles = fs.readdirSync("./commands")
+    let commandfiles = fs.readdirSync("./chinobot/commands")
     commandfiles.splice(7,1)
     for (file of commandfiles) {
         let q = require(`../commands/${file}`)

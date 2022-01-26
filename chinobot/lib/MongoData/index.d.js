@@ -138,7 +138,7 @@ module.exports.writeGuild = function(client,id,data) {
  * 寫入機器人狀態  
  * {client} => Mongo.client  
  */
- module.exports.writeDaily = function (client,data) {
+ module.exports.writedata = function (client,data) {
   let user = client
     .db("mydb")
     .collection("status")
@@ -154,6 +154,27 @@ module.exports.writeGuild = function(client,id,data) {
       if (err) return err;
       if (res) return true;
     });
+}
+
+/**
+ * 讀取圖庫資料數據  
+ * {client} => Mongo.client  
+ */
+ module.exports.loadImage = async function (client,image,nsfw) {
+  let user = await client
+    .db("mydb")
+    .collection("image")
+    .find({ id: image })
+    .toArray();
+    user = user[0]
+  if (user.id === undefined) return false;
+  let images = []
+  await user.images.forEach(element => {
+    if(element.Nsfw === nsfw) {
+      images.push(element)
+    }
+  })
+  return images;
 }
 
 /**

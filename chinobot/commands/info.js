@@ -296,7 +296,7 @@ async function userinfo(bot,message,args,clientDB,language) {
       .addField(h.user.bot , Bot ,true )
       .addField(h.user.status , online ,true)
       .addField(h.user.act, act ,true)
-      .addField(h.user.gameAct, gameing + gameact,true)
+      .addField(h.user.gameAct, `${gameing} ${gameact}`,true)
       .addField(h.user.joinTime+joindate, `${time}`, false)
       .addField(h.user.createTime, `${time2}`, true)
       .setFooter(h.user.footer.user).setTimestamp()
