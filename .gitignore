@@ -1,2 +1,5 @@
 .env
 /node_modules
+chinobot/banlist.json
+chinobot/cache/mc.png
+types/index.ts
