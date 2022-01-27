@@ -19,7 +19,6 @@ module.exports = [
         "type":"on",
         "fit": [1,2,3],
         "fun": async function(client,clientDB,msg) {  
-        msgsay.detectsay(msg,client.bot,clientDB)  
         let prefix = client.prefix;
         let cooldown = client.cooldown
         let channelcooldown = client.channelcooldown
@@ -39,7 +38,6 @@ module.exports = [
               UserCache.set(msg.author.id, cache);
             }
             let user2 = cache
-            if (user2 === false) return RunCommand.main(client, msg, "zh_TW",clientDB,command);
               let uwu = GuildCache.get(msg.author.id);
               if(!uwu) {
                 uwu = await msgcmd.guildcache(msg,uwu,clientDB)
@@ -49,6 +47,7 @@ module.exports = [
                 GuildCache.set(msg.guild.id, uwu);
               }
               if(msgcmd.ifpicture(msg,uwu,prefix)) return msg.channel.send("⛔此指令被本群管理員禁止.\nThis command has been disabled by server admin.");
+              if (user2 === false) return RunCommand.main(client, msg, "zh_TW",clientDB,command);
               if (cooldown.has(msg.author.id)) {
                 if (user2.language) {
                   if(!languages[user2.language]) return;
@@ -66,6 +65,7 @@ module.exports = [
                 return RunCommand.main(client, msg, userlang,clientDB,command);
             }
         }
+        msgsay.detectsay(client,msg,client.bot,clientDB)  
         if(client.bot != 3) detectrank(msg,clientDB,client)
       }
       },
@@ -92,7 +92,6 @@ async function detectrank(message,clientDB,client) {
             if(user === false) return rankMain.main(message,user,clientDB,client,1)
             client.UserCache.set(message.author.id,user)
         })}
-        let user = cache
-        return rankMain.main(message,user,clientDB,client,client.bot)
+        return rankMain.main(message,cache,clientDB,client,client.bot)
 }
 }

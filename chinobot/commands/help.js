@@ -14,6 +14,7 @@ module.exports = {
         help: false,
         fun: function (bot, message,clientDB,language,args, ...ag) { 
             let lang = lan.zh_TW,h = helpX.zh_TW
+            let p = bot.prefix
             if(language === "zh_TW") {lang = lan.zh_TW;h = helpX.zh_TW}else if(language === "zh_CN") {lang = lan.zh_CN;h = helpX.zh_CN}else if(language === "ja_JP") {lang = lan.ja_JP;h = helpX.ja_JP
             }else if(language === "en_US") {lang = lan.en_US;h = helpX.en_US}
             let BUTTON1 = new Discord.MessageButton().setStyle('LINK')

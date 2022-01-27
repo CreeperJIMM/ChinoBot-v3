@@ -6,7 +6,7 @@ module.exports.main = function(message,user,clientDB,client,num) {
         if(num === 1) if (!message.content.startsWith("cr!")) return;
         if(num === 2) if (!message.content.startsWith("cr?")) return;
         Mongo.loadGuild(clientDB, message.guild.id).then((ser) => {
-        if (ser === false) { return }
+        if (ser === false) { return; }
         if(ser.language.run) {if(ser.language.run != num) return;}
         let time = new Date().toDateString()
         console.log("新用戶!!" + message.author.username)
@@ -44,7 +44,6 @@ module.exports.main = function(message,user,clientDB,client,num) {
             time: [time],
             ver: "6.1a(7/11)"
             };
-            //[{type:"chino",name:""}], [{type:"cocoa",name:""}]
             var myobj = [
             { "type": "user", "id": message.author.id, [message.author.id]: obj }
             ];

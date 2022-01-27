@@ -1,8 +1,4 @@
 let Mongo = require('./MongoData')
-const GuildCache = new Map()
-setInterval(() => {
-  GuildCache.clear()
-}, 600000);
 
 let cooldown = new Set(),channelcooldown = new Set();
 function deleteCooldown(message) {
@@ -62,9 +58,10 @@ module.exports.data = {
     "智乃乃": this.send("~~喜歡蘿莉的變態~~", "作弊者( ˘•ω•˘ )", "好瑟喔", "聽說蘿莉都怕他","~~女生身體構造研究者~~")
 }
 
-module.exports.detectsay = async function (msg,num,clientDB) {
+module.exports.detectsay = async function (client,msg,num,clientDB) {
     if (!msg.guild) return;
     if (msg.author.bot) return;
+    let GuildCache = client.GuildCache
     let ser = GuildCache.get(msg.author.id)
     if(!ser) {
     ser = await Mongo.loadGuild(clientDB,msg.guild.id)
