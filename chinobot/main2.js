@@ -14,7 +14,7 @@ start()
 
 function start() {
     //Discord
-    const client = new Client({intents: [Intents.FLAGS.GUILDS,"GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES",/*"GUILD_PRESENCES","GUILD_MEMBERS",*/"GUILD_VOICE_STATES"] })
+    const client = new Client({intents: [Intents.FLAGS.GUILDS,"GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES","GUILD_PRESENCES","GUILD_MEMBERS","GUILD_VOICE_STATES"] })
     const { DiscordTogether } = require('discord-together');
     client.discordTogether = new DiscordTogether(client);
     //Mongo
@@ -35,7 +35,7 @@ function start() {
     setInterval(() => {
         client.UserCache.clear()
         client.GuildCache.clear()
-      }, 60000);
+      }, 30000);
     //definition
     client.prefix = prefix
     client.version = version
