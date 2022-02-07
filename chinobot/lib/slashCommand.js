@@ -10,14 +10,9 @@ for (file of slashfiles) {
 
 module.exports.main = function (client, clientDB, prefix) {
   client.on("interactionCreate", async (interaction) => {
-    let GuildCache = client.GuildCache
-    if (!interaction.isCommand()) return;
-    let ser = GuildCache.get(interaction.guildId);
-    if (!ser) {
-      ser = await Mongo.loadGuild(clientDB, interaction.guildId)
-      GuildCache.set(interaction.guildId, ser);
-    }
     if(!interaction) return;
+    if (!interaction.isCommand()) return;
+    let ser = await Mongo.getguild(client,clientDB,interaction.guildId)
     if (!ser) return; 
     if (ser.language) {
       if (ser.language.setting) {

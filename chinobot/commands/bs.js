@@ -507,7 +507,7 @@ module.exports = {
         category: "normal",
         vote: false,
         help: false,
-        fun: function (bot, message,clientDB,language,agrs, ...text) { 
+        fun: function (bot, message,clientDB,language,args, ...text) { 
             let l = lan.zh_TW,k = gameX.zh_TW
             if(language === "zh_TW") {l = lan.zh_TW;k = gameX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;k = gameX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;k = gameX.ja_JP
             }else if(language === "en_US") {l = lan.en_US;k = gameX.en_US}
@@ -537,7 +537,7 @@ module.exports = {
             category: "admin",
             vote: false,
             help: false,
-            fun: function (bot, message,clientDB,language,agrs, ...text) { 
+            fun: function (bot, message,clientDB,language,args, ...text) { 
                 let l = lan.zh_TW,k = gameX.zh_TW
                 if(language === "zh_TW") {l = lan.zh_TW;k = gameX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;k = gameX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;k = gameX.ja_JP
                 }else if(language === "en_US") {l = lan.en_US;k = gameX.en_US}
@@ -547,8 +547,31 @@ module.exports = {
                 const emoteRegex = /<:.+:(\d+)>/gm
                 const nameRegex = /:.+:/gm
                 const animatedEmoteRegex = /<a:.+:(\d+)>/gm
-                if(!message.content.match(hasEmoteRegex)) return message.channel.send("未找到表情符號.")
-
+                const fileextion = /\.([0-9a-z]+)(?:[\?#]|$)/gm
+                const https = /https?:\/\//gm
+                let url = String(args[0])
+                if(!message.content.match(hasEmoteRegex)) {
+                    if(url.match(https) && url.match(fileextion)) {
+                        if(url.indexOf("png") || url.indexOf("jpg") || url.indexOf("webp") || url.indexOf("gif") ||url.indexOf("jpeg")) {
+                            let name = new Date().getTime()
+                            if(args[1]) name = args[1]
+                            let emo = message.guild.emojis.create(url,name)
+                            emo.then((emoji) => {
+                                message.channel.send("Added this emoji in this guild!") 
+                                setTimeout(() => {
+                                let emoji2 = `<a:${emoji.name}:${emoji.id}> `
+                                return message.channel.send(emoji2+emoji2+emoji2);  
+                            }, 1800);                
+                            }).catch((err) => {
+                                return message.channel.send(l.error.Run_Command_error+err);
+                            })
+                        }else{
+                            return message.channel.send("未支援格式!")
+                          }
+                    }else{
+                    return message.channel.send("未找到表情符號.")
+                    }
+                }else{
                 if (emoji = emoteRegex.exec(message)) {
                 const url = "https://cdn.discordapp.com/emojis/" + emoji[1] + ".png?v=1"
                 let name = nameRegex.exec(message)[0]
@@ -581,7 +604,7 @@ module.exports = {
                 }
                 else {
                     return message.channel.send("Couldn't find an emoji to paste!");
-                }
+                }}
                 }
             }
 }

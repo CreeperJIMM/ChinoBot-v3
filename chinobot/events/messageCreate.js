@@ -22,8 +22,6 @@ module.exports = [
         let prefix = client.prefix;
         let cooldown = client.cooldown
         let channelcooldown = client.channelcooldown
-        let UserCache = client.UserCache
-        let GuildCache = client.GuildCache
         if (msg.content.startsWith(prefix)) {
             if (!msg.guild) return;
             if (!msg.guild.me.permissions.has(['SEND_MESSAGES'])) return;
@@ -32,28 +30,16 @@ module.exports = [
             if (channelcooldown.has(msg.channel.id)) return;
             if (msg.author.bot) return;
             msgcmd.ifban(banlist,why,msg)
-            let cache = UserCache.get(msg.author.id);
-            if(!cache) {
-              cache = await msgcmd.usercache(msg,cache,clientDB)
-              UserCache.set(msg.author.id, cache);
-            }
-            let user2 = cache
-              let uwu = GuildCache.get(msg.author.id);
-              if(!uwu) {
-                uwu = await msgcmd.guildcache(msg,uwu,clientDB)
-                if(uwu === false) {
-                  return RunCommand.main(client, msg,"zh_TW",clientDB,command)
-                }
-                GuildCache.set(msg.guild.id, uwu);
-              }
+            let user = await Mongo.getuser(client,clientDB,msg.author.id)
+            let uwu = await Mongo.getguild(client,clientDB,msg.guild.id)
               if(msgcmd.ifpicture(msg,uwu,prefix)) return msg.channel.send("⛔此指令被本群管理員禁止.\nThis command has been disabled by server admin.");
-              if (user2 === false) return RunCommand.main(client, msg, "zh_TW",clientDB,command);
+              if (user === false) return RunCommand.main(client, msg, "zh_TW",clientDB,command);
               if (cooldown.has(msg.author.id)) {
-                if (user2.language) {
-                  if(!languages[user2.language]) return;
-                    let lsay = languages[user2.language].error.TooSpeed
+                if (user.language) {
+                  if(!languages[user.language]) return;
+                    let lsay = languages[user.language].error.TooSpeed
                       msg.channel.send(lsay);
-                      adv.speed(client, msg, user2.language,clientDB)
+                      adv.speed(client, msg, user.language,clientDB)
                       return;
                 } else {
                     msg.channel.send("請等等再來使用此指令!\nplease wait.");
@@ -61,7 +47,7 @@ module.exports = [
                     return;
                   }
               } else {
-                let userlang = user2.language
+                let userlang = user.language
                 return RunCommand.main(client, msg, userlang,clientDB,command);
             }
         }
@@ -80,18 +66,12 @@ setTimeout(() => {openServer = false;}, 40000);
 
 let rankMain = require("../lib/Rank")
 async function detectrank(message,clientDB,client) {
-    if (message.author.bot) return;
-    if(openServer) return;
-        if (rank.has(message.author.id)) { return; }else{
-        rank.add(message.author.id)
-        deleRank(message)
-        let cache= client.UserCache.get(message.author.id)
-        if(!cache) {
-            await Mongo.loadUser(clientDB,message.author.id).then((user) => {
-            cache = user
-            if(user === false) return rankMain.main(message,user,clientDB,client,1)
-            client.UserCache.set(message.author.id,user)
-        })}
-        return rankMain.main(message,cache,clientDB,client,client.bot)
+  if (message.author.bot) return;
+  if(openServer) return;
+  if (rank.has(message.author.id)) { return; }else{
+    rank.add(message.author.id)
+    deleRank(message)
+    let user = await Mongo.getuser(client,clientDB,message.author.id)
+    return rankMain.main(message,user,clientDB,client,client.bot)
 }
 }

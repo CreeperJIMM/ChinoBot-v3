@@ -35,7 +35,7 @@ function start() {
     setInterval(() => {
         client.UserCache.clear()
         client.GuildCache.clear()
-      }, 60000);
+      }, 30000);
     //definition
     client.prefix = prefix
     client.version = version

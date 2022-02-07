@@ -70,7 +70,7 @@ module.exports = {
           }else if(language === "en_US") {lang = lan.en_US;useful2 = useful.en_US}
             var Today=new Date();
             const TimeEmbed = new Discord.MessageEmbed()
-            .setTitle(lang.time.today + lang.word.yes + Today.getFullYear()+ lang.date.year + (Today.getMonth()+1) + lang.date.month + Today.getDate() + " "+lang.date.date+"  "+lang.date.week + Today.getDay(),)
+            .setTitle(lang.time.today + lang.word.yes + Today.getFullYear()+ lang.date.year + (Today.getMonth()+1) + lang.date.month + Today.getDate() + " "+lang.date.date+"  " + lang.date.dayArray[Today.getDay()])
             .addField(lang.time.time , Today.getHours() + ":" + Today.getMinutes() + ":" + Today.getSeconds() + ":" + Today.getMilliseconds(),)
             return msg.channel.send({embeds: [TimeEmbed]});
         }
@@ -105,6 +105,46 @@ module.exports = {
           }
         }
     },
+    "userbanner":{
+      description: {zh_TW:"伺服器橫幅",en_US:"server banner",ja_JP:""},
+      authority: "everyone",
+      instructions: "banner",
+      category: "normal",
+      vote: false,
+      help: false,
+      fun: function (bot, message,clientDB,language,ag) { 
+        let lang = lan.zh_TW,useful2 = useful.zh_TW
+        if(language === "zh_TW") {lang = lan.zh_TW;useful2 = useful.zh_TW}else if(language === "zh_CN") {lang = lan.zh_CN;useful2 = useful.zh_CN}else if(language === "ja_JP") {lang = lan.ja_JP;useful2 = useful.ja_JP
+        }else if(language === "en_US") {lang = lan.en_US;useful2 = useful.en_US}
+        if(!message.guild) return message.channel.send(lang.error.No_DM);
+        let member = message.author 
+        if(message.mentions.users.size){
+                member=message.mentions.users.first()
+        }else if(ag[0] != null) {
+          member=bot.users.cache.get(ag[0])
+          if(!member) {
+            let nickname = message.guild.members.cache.find(m => m.displayName.includes(ag[0]))
+            if(nickname) member = nickname.user
+          }
+        }
+        if(member){
+          bot.api.users(member.id).get().then((user) => {
+            if(user.banner) {
+              const emb=new Discord.MessageEmbed().setImage(`https://cdn.discordapp.com/banners/${user.id}/${user.banner}?size=4096`).setTitle(member.username +" "+lang.word.of + useful2.avatar.avatar).setTimestamp().setFooter("🌎")
+              .setDescription("[[📄Link]]("+`https://cdn.discordapp.com/banners/${user.id}/${user.banner}?size=4096`+")")
+              return message.channel.send({embeds: [emb]});
+            }else{
+              message.channel.send(useful2.avatar.No_user_banner)
+            }
+        }).catch((error) => {
+          console.log(error)
+          return message.channel.send(lang.error.Not_found_Member + ag)
+        })
+          }else{
+            return message.channel.send(lang.error.Not_found_Member + ag)
+          }
+        }
+      },
     "savatar":{
       description: {zh_TW:"伺服器的頭貼",en_US:"server avatar",ja_JP:""},
       authority: "everyone",
@@ -179,9 +219,8 @@ module.exports = {
         .setImage(guild.bannerURL({ format: "png", dynamic: true ,size: 2048})).setTimestamp().setFooter("🌎")
         .setDescription("[[📄Link]]("+guild.bannerURL({ format: "png", dynamic: true ,size: 2048})+")")
         return message.channel.send({embeds: [avatarEmbed]});
-      
-    }
-},
+      }
+    },
     "hooksay":{
       description: "測試",
       vote: true,

@@ -61,12 +61,7 @@ module.exports.data = {
 module.exports.detectsay = async function (client,msg,num,clientDB) {
     if (!msg.guild) return;
     if (msg.author.bot) return;
-    let GuildCache = client.GuildCache
-    let ser = GuildCache.get(msg.author.id)
-    if(!ser) {
-    ser = await Mongo.loadGuild(clientDB,msg.guild.id)
-    GuildCache.set(msg.guild.id,ser)
-    }
+    let ser = await Mongo.getguild(client,clientDB,msg.guild.id)
     if (ser === false) return;
     if (ser.language) { if (ser.language.run != num) return;}
     if(ser.language.setting) {if(ser.language.setting.react === false) return;}

@@ -1,6 +1,5 @@
 let Mongo = require('./MongoData')
 module.exports.main = async function (oldMember, newMember, num, clientDB,client) {
-  let GuildCache = client.GuildCache
   try {
     const newUserChannel = newMember.channelId;
     const oldUserChannel = oldMember.channelId;
@@ -9,13 +8,7 @@ module.exports.main = async function (oldMember, newMember, num, clientDB,client
       newMember.channel &&
       oldUserChannel != newUserChannel) {
       let gid = oldMember.guild.id;
-      let ser = GuildCache.get(gid);
-      if (!ser) {
-        await Mongo.loadGuild(clientDB, gid).then((user) => {
-          ser = user;
-          GuildCache.set(gid, user);
-        });
-      }
+      let ser = await Mongo.loadGuild(clientDB,gid)
       if (ser === false) {
         return;
       }
@@ -43,13 +36,7 @@ module.exports.main = async function (oldMember, newMember, num, clientDB,client
       let gid = newMember.guild.id;
       if(!newMember.channel) return;
       let parentid = newMember.channel.parentId;
-      let ser = GuildCache.get(gid);
-      if (!ser) {
-        await Mongo.loadGuild(clientDB, gid).then((user) => {
-          ser = user;
-          GuildCache.set(gid, user);
-        });
-      }
+      let ser = await Mongo.loadGuild(clientDB,gid)
       if (ser === false) {
         return;
       }
@@ -92,13 +79,7 @@ module.exports.main = async function (oldMember, newMember, num, clientDB,client
       let gid = oldMember.guild.id;
       let leavechannel = oldMember.channel;
       if(!leavechannel) leavechannel = oldMember.guild.channels.cache.get(oldMember.channelId)
-      let ser = GuildCache.get(gid);
-      if (!ser) {
-        await Mongo.loadGuild(clientDB, gid).then((user) => {
-          ser = user;
-          GuildCache.set(gid, user);
-        });
-      }
+      let ser = await Mongo.getguild(client,clientDB,gid)
       if (ser === false) {
         return;
       }
@@ -110,15 +91,15 @@ module.exports.main = async function (oldMember, newMember, num, clientDB,client
           return;
         } else {
           try {
-            if (ser.voice.indexOf(oldUserChannel) != "-1") {
+            if (user.voice.indexOf(oldUserChannel) != "-1") {
               if (leavechannel.members.size === 0) {
                 leavechannel.delete();
-                var array = ser.voice;
+                var array = user.voice;
                 var index = array.indexOf(oldUserChannel);
                 if (index > -1) {
                   array.splice(index, 1);
                 }
-                Mongo.writeGuild(clientDB, gid, ser);
+                Mongo.writeGuild(clientDB, gid, user);
                 return;
               }
             }

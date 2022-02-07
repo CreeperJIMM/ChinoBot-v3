@@ -3,3 +3,7 @@
 chinobot/banlist.json
 chinobot/cache/mc.png
 types/index.ts
+bot.bat
+chinobot/main2.js
+chinobot/main3.js
+chinobot/lib/cooldown.js

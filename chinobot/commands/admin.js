@@ -74,9 +74,7 @@ module.exports = {
             if(language === "zh_TW") {l = lan.zh_TW;h = adminX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;h = adminX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;h = adminX.ja_JP}else if(language === "en_US") {l = lan.en_US;h = adminX.en_US}
             if (!message.guild) return message.channel.send(l.error.No_DM);
             if (message.member.permissions.has(['KICK_MEMBERS'])) {
-                const user = message.mentions.users.first()
-                if (user) {
-                    const member = message.guild.members.cache.get(user.id);
+                const member = message.mentions.members.first()
                     if (member) {
                         member.kick(`${h.kick.ByAdmin} ${member} ${h.kick.kick}`).then(() => {
                             message.channel.send(` ${user.tag} ${h.kick.kick} ${message.guild.name}!`);
@@ -89,10 +87,6 @@ module.exports = {
                         message.channel.send(l.error.Not_found_Member)
                         return;
                     }
-                } else {
-                    message.channel.send(h.kick.error.mention)
-                    return;
-                }
             } else {
                 return message.channel.send(`${l.error.No_Prem} ${l.prem.kick_members} ${l.error.No_Prem2}`);
             }
@@ -110,9 +104,8 @@ module.exports = {
             if(language === "zh_TW") {l = lan.zh_TW;h = adminX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;h = adminX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;h = adminX.ja_JP}else if(language === "en_US") {l = lan.en_US;h = adminX.en_US}
             if (!message.guild) return message.channel.send(l.error.No_DM);
             if (message.member.permissions.has(['BAN_MEMBERS'])) {
-                const user = message.mentions.users.first()
-                if (user) {
-                    const member = message.guild.member(user);
+                const member = message.mentions.members.first()
+                if (member) {
                     if (member) {
                         member.ban({ reason:`${h.ban.ByAdmin} ${member} ${h.ban.ban}!`}).then(() => {
                             message.channel.send(`${h.ban.success} ${user.tag} ${h.ban.from} ${message.guild.name} ${h.ban.in}${h.ban.ban}!`);

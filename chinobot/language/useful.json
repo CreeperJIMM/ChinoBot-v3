@@ -8,7 +8,8 @@
             "server": "伺服器",
             "guild": "群",
             "banner": "橫幅",
-            "No_banner": "❌本伺服器沒有橫幅"
+            "No_banner": "❌本伺服器沒有橫幅",
+            "No_user_banner":"❌本成員沒有橫幅"
         },
         "embed": {
             "title": "鑲入使用方法 ",
@@ -31,7 +32,8 @@
             "server": "伺服器",
             "guild": "群",
             "banner": "横幅",
-            "No_banner": "❌本伺服器没有横幅"
+            "No_banner": "❌本伺服器没有横幅",
+            "No_user_banner":"❌本成員沒有橫幅"
         },
         "embed": {
             "title": "镶入使用方法 ",
@@ -54,7 +56,8 @@
             "server": "server",
             "guild": "guild",
             "banner": "banner",
-            "No_banner": "❌This server does not have banner"
+            "No_banner": "❌This server does not have banner",
+            "No_user_banner":"❌This user does bot have banner"
         },
         "embed": {
             "title": "How to create an embed ",
@@ -77,7 +80,8 @@
             "server": "サーバ",
             "guild": "グループ",
             "banner": "バナー",
-            "No_banner": "❌このサーバーにはバナーがありません"
+            "No_banner": "❌このサーバーにはバナーがありません",
+            "No_user_banner":"❌This user does bot have banner"
         },
         "embed": {
             "title": "使い方 ",

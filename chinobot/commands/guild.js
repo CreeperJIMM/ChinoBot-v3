@@ -741,6 +741,13 @@ async function nor(bot,message,clientDB,language,args,number, ...text) {
       ser.language = {lan: lan2,run: 2,setting: set}
       Mongo.writeGuild(clientDB,message.guild.id,ser)
       message.channel.send(k.word2.detcet+"`智乃小幫手2#5127`"+k.word2.detcet2)
+    }else if(args[1] === "3") {
+      if(message.author.id != "546144403958398988") return message.channel.send("⛔你不是擁有者不可以設置為測試用機!")
+      let lan2 = ser.language.lan
+      let set = ser.language.setting
+      ser.language = {lan: lan2,run: 3,setting: set}
+      Mongo.writeGuild(clientDB,message.guild.id,ser)
+      message.channel.send(k.word2.detcet+"`智乃小幫手•Canary#9156`"+k.word2.detcet2)
     }else{message.channel.send(k.word.error_type_in+"\n"+k.word.please_type+" `[1 / 2]`")}
   })
 }

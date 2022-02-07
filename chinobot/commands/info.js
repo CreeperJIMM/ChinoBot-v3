@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
 const fs =require("fs")
-const version = process.env["discord_version"]
+const version = process.env["discord_version_1"]
 const Mongo = require("../lib/MongoData")
 const lan = require('../language/lang.json');
 const infoX = require('../language/info.json');

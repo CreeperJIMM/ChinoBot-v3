@@ -25,7 +25,7 @@ module.exports = [
 {
     "name":"is_owner",
     fun: function (message) { //是不是作者
-    if (Number(message.author.id) != owner) {
+    if (Number(message.author.id) != Number(owner)) {
       return false;
     }
   }

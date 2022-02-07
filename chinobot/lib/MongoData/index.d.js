@@ -196,7 +196,7 @@ module.exports.writeGuild = function(client,id,data) {
  * 寫入圖庫會報數據  
  * {client} => Mongo.client  
  */
- module.exports.writeDaily = function (client,data) {
+ module.exports.writePicture = function (client,data) {
   let user = client
     .db("mydb")
     .collection("report")
@@ -228,3 +228,50 @@ module.exports.writeGuild = function(client,id,data) {
   user = user[0]
   return user;
 }
+
+/**
+ * 讀取用戶資料並寫入緩存  
+ * {client} => Discord.client  
+ * {clientDB} => Mongo.client  
+ */
+ module.exports.getuser = async function (client, clientDB, id) {
+  let UserCache = client.UserCache.get(id);
+  if (!UserCache) {
+    let user = await this.loadUser(clientDB, id)
+      if (user === false) return false;
+      UserCache = {
+        language: user.language,
+        money: user.money,
+        rank: user.rank,
+      };
+      client.UserCache.set(id, UserCache);
+      return UserCache;
+  } else {
+    return UserCache;
+  }
+};
+
+/**
+ * 讀取公會資料並寫入緩存  
+ * {client} => Discord.client  
+ * {clientDB} => Mongo.client  
+ */
+module.exports.getguild = async function (client, clientDB, id) {
+  let GuildCache = client.GuildCache.get(id);
+  if (!GuildCache) {
+    let user = await this.loadGuild(clientDB, id)
+      if (user === false) return false;
+      GuildCache = {
+        language: user.language,
+        detect: user.detect,
+        join: user.join,
+        leave: user.leave,
+        text2: user.text2,
+        voice2: user.voice2,
+      };
+      client.GuildCache.set(id, GuildCache);
+      return GuildCache;
+  } else {
+    return GuildCache;
+  }
+};

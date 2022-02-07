@@ -36,7 +36,7 @@ module.exports.main = async function(message, guild, channel, gid, length,client
                     .addField(k2.channel, `\n <#${message.channel.id}>\n${message.channel.id}`, true)
                 if (message.content) { 
                     let content = message.content
-                    if(content.length >= 1024) content.substring(0,1020)
+                    if(content.length >= 1024) content = content.substring(0,1020)
                     dele.addField(k2.content, content, false) } else { dele.addField(k2.content, l2.word.none, false) 
                     }
                 dele.setTimestamp()
@@ -71,13 +71,15 @@ module.exports.main = async function(message, guild, channel, gid, length,client
             } else if (channel === "edit") {
                 if (guild.embed) return;
                 let content = message.content
-                if(content.length >= 1024) content.substring(0,1020)
+                let contentedit = guild.content
+                if(content.length >= 1024) content = content.substring(0,1020)
+                if(contentedit.length >= 1024) contentedit = contentedit.substring(0,1020)
                 let dele = new Discord.MessageEmbed()
                     .setTitle("__" + k2.edit + k2.message + "__")
                     .setColor("#c8db5c")
                     .addField(k2.member, message.author.tag + `\n <@${message.author.id}> \n${message.author.id}`, true)
                     .addField(k2.channel, `\n <#${message.channel.id}>\n${message.channel.id}`, true)
-                    .addField("📝" + k2.editb, `${content}\n\n📝**${k2.edited}**\n${guild.content}`, false)
+                    .addField("📝" + k2.editb, `${content}\n\n📝**${k2.edited}**\n${contentedit}`, false)
                     .setTimestamp().addField(`${k2.msgid}`,` ${message.id} [[前往]](https://discord.com/channels/${message.guildId}/${message.channelId}/${message.id})`)
                 client.channels.cache.get(ser.detect).send({embeds: [dele]})
                 .then((msg) => {

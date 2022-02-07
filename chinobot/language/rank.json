@@ -41,7 +41,7 @@
             "pay": "💸已給予 ",
             "you_will":"你將你的","give":"給了",
             "now_you":"現在你變成 ","now_have":"現在有 ",
-            "handing_free":"[已從中取0.2%手續費] ","extra":"你花了額外 ","give_someone":"來給予別人錢"
+            "handing_free":"[已從中取2%手續費] ","extra":"你花了額外 ","give_someone":"來給予別人錢"
         },
         "marry":{
             "cant_own":"❌你不能跟自己結婚!",
@@ -146,7 +146,7 @@
             "pay": "💸已给予 ",
             "you_will":"你将你的","give":"给了",
             "now_you":"现在你变成 ","now_have":"现在有 ",
-            "handing_free":"[已从中取0.2%手续费] ","extra":"你花了额外 ","give_someone":"来给予别人钱"
+            "handing_free":"[已从中取2%手续费] ","extra":"你花了额外 ","give_someone":"来给予别人钱"
         },
         "marry":{
             "cant_own":"❌你不能跟自己结婚!",
@@ -251,7 +251,7 @@
             "pay": "💸 has been given",
             "you_will":"You will give you","give":"Give",
             "now_you":"Now you become ","now_have":"now have ",
-            "handing_free":"[0.2% handling fee has been taken from it] ","extra":"You spent extra  ","give_someone":"  to give money to others"
+            "handing_free":"[2% handling fee has been taken from it] ","extra":"You spent extra  ","give_someone":"  to give money to others"
         },
         "marry":{
             "cant_own":"❌You cannot marry yourself!",
@@ -356,7 +356,7 @@
             "pay": "💸与えられた ",
             "you_will":"あなたはあなたになります","give":"与えた",
             "now_you":"今、あなたはなります ","now_have":"がある ",
-            "handing_free":"[0.2％の手数料がかかります] ","extra":"あなたは余分に費やしました ","give_someone":"  他の人にお金を与えるために"
+            "handing_free":"[2％の手数料がかかります] ","extra":"あなたは余分に費やしました ","give_someone":"  他の人にお金を与えるために"
         },
         "marry":{
             "cant_own":"❌あなたは自分と結婚することはできません！",

@@ -4,30 +4,20 @@ module.exports = [
     {
         "name":"guildMemberAdd",
         "type":"on",
-        "fit": [1,2],
+        "fit": [1,2,3],
         "fun": async function(client,clientDB,member) {       
         let gid = member.guild.id
-        let ser= client.GuildCache.get(gid)
-        if(!ser) {
-          await Mongo.loadGuild(clientDB,gid).then((user) => {
-            ser = user
-            GuildCache.set(gid,user)
-        })}
+        let ser= await Mongo.getguild(client,clientDB,gid)
         return memJoLe.join(ser,member,clientDB,client,client.bot)
        }
       },
       {
        "name":"guildMemberRemove",
        "type":"on",
-       "fit": [1,2],
+       "fit": [1,2,3],
        "fun": async function(client,clientDB,member) {
          let gid = member.guild.id
-         let ser= client.GuildCache.get(gid)
-         if(!ser) {
-           await Mongo.loadGuild(clientDB,gid).then((user) => {
-             ser = user
-             GuildCache.set(gid,user)
-         })}
+         let ser= await Mongo.getguild(client,clientDB,gid)
          return memJoLe.leave(ser,member,clientDB,client,client.bot)
        }
       },

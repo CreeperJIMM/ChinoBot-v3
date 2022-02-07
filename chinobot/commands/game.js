@@ -257,7 +257,7 @@ module.exports = {
             let l = lan.zh_TW,k = gameX.zh_TW
             if(language === "zh_TW") {l = lan.zh_TW;k = gameX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;k = gameX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;k = gameX.ja_JP
             }else if(language === "en_US") {l = lan.en_US;k = gameX.en_US}
-            let help = new Discord.MessageEmbed().setTitle(k.rps2.title).setDescription(k.word.typemoney + "\n`" + p + "rps2 [money]`").addField(k.rps2.rule.a, k.rps2.rule.f)
+            let help = new Discord.MessageEmbed().setTitle(k.rps2.title).setDescription(k.word.typemoney + "\n`" + bot.prefix + "rps2 [money]`").addField(k.rps2.rule.a, k.rps2.rule.f)
             if (args[0] == null || args[0] == "") return message.channel.send({embeds: [help]})
             if (isNaN(args[0])) return message.channel.send(help)
             if (args[0] < 1) return message.channel.send(l.error.type_positive)

@@ -970,7 +970,7 @@ async function shark0(bot, msg,clientDB,language) {
                         Mongo.loadImage(clientDB,"gura","Yes").then((images) => {
                             let num = Math.floor(Math.random() * images.length)
                             let f = images[num].Title
-                            const cocoaEmbed = new Discord.MessageEmbed()
+                            const chino18Embed = new Discord.MessageEmbed()
                                 .setColor('#2d9af8')
                                 .setTitle(msg.author.username + " " + h.word.ordered + h.role.chino)
                                 .setURL(images[num].URL)

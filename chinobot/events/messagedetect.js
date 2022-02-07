@@ -12,12 +12,7 @@ module.exports = [
          if (snipecool.has(message.author.id)) return;
          if (!message.guild) return;
          let gid = message.guild.id
-         let ser= client.GuildCache.get(gid)
-         if(!ser) {
-           await Mongo.loadGuild(clientDB,gid).then((user) => {
-             ser = user
-             client.GuildCache.set(gid,user)
-         })}
+         let ser= await Mongo.getguild(client,clientDB,gid)
              if (ser === false) { return }
              if (ser.language.run) { if (ser.language.run != client.bot) return; }
              if(ser.language.setting) {if(ser.language.setting.snipe === false) return;}
@@ -59,13 +54,7 @@ function deleteMessage(message,clientDB,client) {
 ////////////////////////////////////////////////////////////////
 let detectMsg = require("../lib/detectMessage")
 async function detects(client,message, guild, channel, gid, length,clientDB) {
-    let ser= client.GuildCache.get(gid)
-    if(!ser) {
-        await Mongo.loadGuild(clientDB,gid).then((user) => {
-            ser = user
-            client.GuildCache.set(gid,user)
-        })
-    }
+    let ser = await Mongo.getguild(client,clientDB,gid)
     if (ser === false) { return }
     return detectMsg.main(message, guild, channel, gid, length,clientDB,client,ser,client.bot)
 };

@@ -57,8 +57,25 @@ module.exports = [
     name: "error",
     type: "on",
     "fit": [1,2,3],
-    fun: function (client, clientDB, prefix, error) {
+    fun: function (client, clientDB, error) {
       throw error;
+    },
+  },
+  {
+    name: "ready",
+    type: "once",
+    "fit": [1],
+    fun: function (client, clientDB, error) {
+      let daily = require("../lib/dailyrest")
+      daily.main()
+    }
+  },
+  {
+    name: "shardError",
+    type: "on",
+    "fit": [1,2,3],
+    fun: function (client, clientDB, error) {
+      console.log("discord API發生錯誤!\n"+error)
     },
   },
 ];
