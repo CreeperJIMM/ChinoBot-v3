@@ -1,4 +1,5 @@
-const fetch = require('node-fetch')
+//const fetch = require('node-fetch')
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const cheerio = require("cheerio")
 const Discord = require('discord.js');
 const lan = require('../language/lang.json');

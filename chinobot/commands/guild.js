@@ -992,6 +992,13 @@ async function voice(bot,message,clientDB,language) {
       }}else{
         message.channel.send(l.error.No_Prem+l.prem.manage_channel+l.error.No_Prem2);
 }}
+String.prototype.replaceAll = function(s1,s2){
+  let text = new RegExp(s1,"gm")
+  if(text.test(this)) {
+    return this.replace(text,s2);
+  }else{
+    return this;
+}};
 async function Join(bot,message,clientDB,language,args, nubmer, ...text) {
   let l = lan.zh_TW,k = gameX.zh_TW
   if(language === "zh_TW") {l = lan.zh_TW;k = gameX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;k = gameX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;k = gameX.ja_JP
@@ -1020,7 +1027,10 @@ async function Join(bot,message,clientDB,language,args, nubmer, ...text) {
                     user.join = message.channel.id
                     user.join2.push(text.join(" "))
                     Mongo.writeGuild(clientDB,message.guild.id,user)
-                    var send = text.join(" ").replace(`{member}` , + message.guild.memberCount + "").replace(`{user}` , " " + " <@" + message.author.id + "> " + "").replace(`{server}` , " " + message.guild.name + "")
+                    var send = text.join(" ")
+                    .replaceAll(`{member}` , + message.guild.memberCount + "")
+                    .replaceAll(`{user}` , " " + " <@" + message.author.id + "> " + "")
+                    .replaceAll(`{server}` , " " + message.guild.name + "")
                     message.channel.send(k.word2.join_set + send)
                     }}
   )}else{
@@ -1054,7 +1064,10 @@ async function leave(bot,message,clientDB,language,args, nubmer, ...text) {
                     user.leave = message.channel.id
                     user.leave2.push(text.join(" "))
                     Mongo.writeGuild(clientDB,message.guild.id,user)
-                    var send = text.join(" ").replace(`{member}` , + message.guild.memberCount + "").replace(`{user}` , " " + " <@" + message.author.id + "> " + "").replace(`{server}` , " " + message.guild.name + "")
+                    var send = text.join(" ")
+                    .replaceAll(`{member}` , + message.guild.memberCount + "")
+                    .replaceAll(`{user}` , " " + " <@" + message.author.id + "> " + "")
+                    .replaceAll(`{server}` , " " + message.guild.name + "")
                     message.channel.send(k.word2.join_set + send)
                     }}
   )}else{
@@ -1086,7 +1099,10 @@ async function rank(bot,message,clientDB,language,args, nubmer, ...text) {
                   user.rank2.push(text.join(" "))
                   var str = JSON.stringify(user);
                   Mongo.writeGuild(clientDB,message.guild.id,user)
-                  var send = text.join(" ").replace(`{rank}` , + "**1**" + "").replace(`{user}` , " " + " <@" + message.author.id + "> " + "").replace(`{server}` , " " + message.guild.name + "")
+                  var send = text.join(" ")
+                  .replaceAll(`{rank}` , + "**1**" + "")
+                  .replaceAll(`{user}` , " " + " <@" + message.author.id + "> " + "")
+                  .replaceAll(`{server}` , " " + message.guild.name + "")
                   message.channel.send(k.word2.rank_set + send)
                   }}
 )}else{

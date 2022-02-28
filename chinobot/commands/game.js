@@ -263,6 +263,8 @@ module.exports = {
             if (args[0] < 1) return message.channel.send(l.error.type_positive)
             if (args[0] > 2000) return message.channel.send(l.error.less_then + "2000!")
             if (Math.round(args[0]) != args[0]) return message.channel.send(l.error.type_integer)
+            if(bot.playing.has(message.author.id)) return message.channel.send("❌請先結束進行的遊戲後再使用此指令!")
+            bot.playing.set(message.author.id,{"game":"slot"})
             Mongo.loadUser(clientDB,message.author.id).then((user) => {
                 if (user === false) { return message.channel.send(l.error.Try_again) }
                 if (time.has(message.author.id)) return message.channel.send(k.word.hasgame)
@@ -425,10 +427,11 @@ module.exports = {
                     let how = null;
                     if (money < 0) { how = k.rps2.gameover.lose + money + "$" } else if (money == 0) { how = k.rps2.gameover.happyPlay } else { how = k.rps2.gameover.win + money + "$" }
                     let over = new Discord.MessageEmbed().setTitle(k.rps2.gameover.gameover).setDescription(how + "\n\n" + k.rps2.gameover.allwin + wincount + "\n" + k.rps2.gameover.wincount + wintop + "\n" + k.rps2.gameover.lastwin + win).setImage('https://cdn.discordapp.com/attachments/611040945495998464/789798895218720778/82021809_p0_master1200.jpg').setFooter(k.rps2.gameover.HP.happy + message.author.username + k.rps2.gameover.HP.play).setTimestamp()
-                    ms.edit({embeds: [over],components: []})
                     time.delete(message.author.id);
                     user.money = parseInt(user.money) + money;
                     Mongo.writeUser(clientDB,message.author.id,user)
+                    bot.playing.delete(message.author.id)
+                    ms.edit({embeds: [over],components: []})
                     return;
                 }
             })
@@ -450,6 +453,8 @@ module.exports = {
             if (args[0] < 1) return message.channel.send(l.error.type_positive)
             if (args[0] > 8000) return message.channel.send(l.error.less_then + "8000!")
             if (Math.round(args[0]) != args[0]) return message.channel.send(l.error.type_integer)
+            if(bot.playing.has(message.author.id)) return message.channel.send("❌請先結束進行的遊戲後再使用此指令!")
+            bot.playing.set(message.author.id,{"game":"slot"})
             Mongo.loadUser(clientDB,message.author.id).then((user) => {
                 if (user === false) { return message.channel.send(l.error.Try_again) }
                 if (user.money < args[0]) return message.channel.send(l.error.No_enough_monery)
@@ -470,21 +475,24 @@ module.exports = {
                                 return ms.edit({embeds: [gu1],components: []})
                             } else if (math == "3") {
                                 let gu1 = new Discord.MessageEmbed().setTitle(k.door.game + " [x1.2]").setDescription(k.door.open + " \n" + k.door.event.bydoor).setTimestamp().setFooter("🚪[" + k.door.give + " " + args[0] * 1 + " $]")
-                                ms.edit({embeds: [gu1],components: []})
                                 user.money = parseInt(user.money) + parseInt(args[0] * 1);
                                 Mongo.writeUser(clientDB,message.author.id,user)
+                                bot.playing.delete(message.author.id)
+                                ms.edit({embeds: [gu1],components: []})
                                 return;
                             } else if (math == "4") {
                                 let gu1 = new Discord.MessageEmbed().setTitle(k.door.game + " [x1.5]").setDescription(k.door.open + " \n" + k.door.event.cashbox).setTimestamp().setFooter("🚪[" + k.door.give + " " + args[0] * 1.5 + " $]")
-                                ms.edit({embeds: [gu1],components: []})
                                 user.money = parseInt(user.money) + parseInt(args[0] * 1.5);
                                 Mongo.writeUser(clientDB,message.author.id,user)
+                                bot.playing.delete(message.author.id)
+                                ms.edit({embeds: [gu1],components: []})
                                 return;
                             } else if (math == "5" || math == "6") {
                                 let gu1 = new Discord.MessageEmbed().setTitle(k.door.game + " [Monster -x2]").setDescription(k.door.open + "\n...\n" + k.door.event.monster).setTimestamp().setFooter("🚪[" + k.door.lose + args[0] * 2 * -1 + " $]")
-                                ms.edit({embeds: [gu1],components: []})
                                 user.money = parseInt(user.money) + parseInt(args[0] * 3 * -1);
                                 Mongo.writeUser(clientDB,message.author.id,user)
+                                bot.playing.delete(message.author.id)
+                                ms.edit({embeds: [gu1],components: []})
                                 return;
                             }
                         }).catch(() => {
@@ -550,6 +558,8 @@ module.exports = {
             if (args[0] < 1) return message.channel.send(l.error.type_positive)
             if (args[0] > 8000) return message.channel.send(l.error.less_then+"8000!")
             if (Math.round(args[0]) != args[0]) return message.channel.send(l.error.type_integer)
+            if(bot.playing.has(message.author.id)) return message.channel.send("❌請先結束進行的遊戲後再使用此指令!")
+            bot.playing.set(message.author.id,{"game":"slot"})
             let spin = "<a:spin:787592087809687554>";
             let spin2 = "<a:spin2:787592097619509268>";
             let sarray = [":coffee:", ":tropical_drink:", ":custard:", ":cake:", ":pancakes:"];
@@ -595,6 +605,7 @@ module.exports = {
                 if (side === "win") { how = k.slot.win } else { how = k.slot.lose }
                 user.money = user.money + money;
                 Mongo.writeUser(clientDB,message.author.id,user)
+                bot.playing.delete(message.author.id)
                 slot2 = new Discord.MessageEmbed().setTitle(" ==🎰== [" + side + "]").setDescription(text.join("")).setColor("#ff53d0").setFooter(message.author.username + k.slot.beat + args[0] + "$] [" + how + " " + money + "$] ", message.author.avatarURL()).setTimestamp();
                 ms.edit({embeds: [slot2]}).then(() => {
                     time.delete(message.author.id);

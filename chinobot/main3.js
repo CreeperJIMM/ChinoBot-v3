@@ -47,6 +47,7 @@ function start() {
         onlineSET.main1(client,3,clientDB)
         return console.log(`智乃機器人測試號讀取成功! 版本: ${version} Time: ` + new Date().toUTCString());
     });
+
     //event
     client.commands = new Discord.Collection()
     let event = []

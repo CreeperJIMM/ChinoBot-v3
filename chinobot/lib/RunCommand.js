@@ -1,3 +1,4 @@
+let Discord = require("discord.js")
 module.exports.main = async function(bot, msg, userlang,clientDB,command) {
     this.time(bot, msg)
     bot.cooldown.add(msg.author.id)

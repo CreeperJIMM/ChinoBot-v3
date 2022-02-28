@@ -96,7 +96,7 @@ module.exports= {
             let l = lan.zh_TW,k = gameX.zh_TW
             if(language === "zh_TW") {l = lan.zh_TW;k = gameX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;k = gameX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;k = gameX.ja_JP
             }else if(language === "en_US") {l = lan.en_US;k = gameX.en_US}
-            var os = require('os');
+            let os = require('os');
             var usedMemory = os.totalmem() -os.freemem(), totalMemory = os.totalmem();
             var  getpercentage = ((usedMemory/totalMemory) * 100).toFixed(2) + '%'
             let ramEmbed = new Discord.MessageEmbed()
@@ -117,9 +117,9 @@ module.exports= {
             let l = lan.zh_TW,k = gameX.zh_TW
             if(language === "zh_TW") {l = lan.zh_TW;k = gameX.zh_TW}else if(language === "zh_CN") {l = lan.zh_CN;k = gameX.zh_CN}else if(language === "ja_JP") {l = lan.ja_JP;k = gameX.ja_JP
             }else if(language === "en_US") {l = lan.en_US;k = gameX.en_US}
-            var os 	= require('os-utils');
+            let os 	= require('os-utils');
             try {
-            os.cpuFree(function(f){
+            os.cpuUsage(function(f){
             let cpuEmbed = new Discord.MessageEmbed()
             .setTitle(k.bot.info)
             .addField(k.cpu.core, os.platform()+ " / " + os.cpuCount() )

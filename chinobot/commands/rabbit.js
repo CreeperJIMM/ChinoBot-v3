@@ -3,7 +3,7 @@ let fs = require("fs");
 const lan = require('../language/lang.json');
 const rabbitX = require('../language/rabbit.json');
 let Mongo = require("../lib/MongoData/index")
-
+let directurl = require("../lib/directurl")
 let button1 = new Discord.MessageButton(),button2 = new Discord.MessageButton(),button3 = new Discord.MessageButton()
 button1.setStyle('DANGER').setEmoji("💣").setCustomId("A")
 button2.setStyle('PRIMARY').setEmoji("💟").setCustomId("B")
@@ -42,14 +42,15 @@ module.exports = {
                                 user.data.Chino++   
                                 var Chino = user.data.Chino
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"chino","No").then((images) => {
+                                Mongo.loadImage(clientDB,"chino","No").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const chinoEmbed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " " + h.word.ordered + h.role.chino)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.chino}${h.word.ordered2} ${Chino} ${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => { report(bot, msg,clientDB, f, "Chino", "No", rp) });
@@ -85,14 +86,15 @@ module.exports = {
                                 user.data.Chino++
                                 var Chino = user.data.Chino
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"chino","Yes").then((images) => {
+                                Mongo.loadImage(clientDB,"chino","Yes").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const chino18Embed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " 🔞" + h.role.mature+ h.word.ordered + h.role.chino)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.chino}${h.word.ordered2}${Chino}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [chino18Embed],components: [row]}).then((rp) => { report(bot, msg,clientDB, f, "Chino", "Yes", rp) 
@@ -144,14 +146,15 @@ module.exports = {
                                 user.data.Cocoa++
                                 var Cocoa = user.data.Cocoa
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"cocoa","No").then((images) => {
+                                Mongo.loadImage(clientDB,"cocoa","No").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const chinoEmbed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " " + h.word.ordered + h.role.cocoa)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.cocoa}${h.word.ordered2}${Cocoa}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => { report(bot, msg,clientDB, f, "Cocoa", "No", rp) 
@@ -181,14 +184,15 @@ module.exports = {
                                 user.data.Cocoa++
                                 var Cocoa = user.data.Cocoa
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"cocoa","Yes").then((images) => {
+                                Mongo.loadImage(clientDB,"cocoa","Yes").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const chinoEmbed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " 🔞" +h.role.mature+ h.word.ordered + h.role.cocoa)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.cocoa}${h.word.ordered2}${Cocoa}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Cocoa", "Yes", rp) })
@@ -248,14 +252,15 @@ module.exports = {
                             user.data.Tippy++
                             var Tippy = user.data.Tippy
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"tippy","No").then((images) => {
+                            Mongo.loadImage(clientDB,"tippy","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const chinoEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.tippy)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.tippy}${h.word.ordered2}${Tippy}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                 msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Tippy", "No", rp) })
@@ -295,14 +300,15 @@ module.exports = {
                             user.data.Other++
                             var Other = user.data.Other
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"other","No").then((images) => {
+                            Mongo.loadImage(clientDB,"other","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const chinoEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.other)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.other}${h.word.ordered2}${Other}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                 msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Other", "No", rp) })
@@ -343,14 +349,15 @@ module.exports = {
                             user.data.Fubuki++
                             var Fubuki = user.data.Fubuki                            
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"fubuki","No").then((images) => {
+                            Mongo.loadImage(clientDB,"fubuki","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const chinoEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.fubuki)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.fubuki}${h.word.ordered2}${Fubuki}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Fubuki", "No", rp) })
@@ -378,14 +385,15 @@ module.exports = {
                                 user.data.Fubuki++
                                 var Cocoa = user.data.Fubuki
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"fubuki","Yes").then((images) => {
+                                Mongo.loadImage(clientDB,"fubuki","Yes").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const chinoEmbed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " 🔞"+h.role.mature + h.word.ordered + h.role.fubuki)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.fubuki}${h.word.ordered2}${Cocoa}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Fubuki", "Yes", rp) })
@@ -426,14 +434,15 @@ module.exports = {
                             user.data.shota++
                             var Shota = user.data.shota                            
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"shota","No").then((images) => {
+                            Mongo.loadImage(clientDB,"shota","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const chinoEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.shota)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.shota}${h.word.ordered2}${Shota}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Shota", "No", rp) })
@@ -474,14 +483,15 @@ module.exports = {
                                 user.data.loli++
                                 var Cocoa = user.data.loli                                
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"loli","No").then((images) => {
+                                Mongo.loadImage(clientDB,"loli","No").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const cocoaEmbed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " " + h.word.ordered + h.role.loli)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.loli}${h.word.ordered2}${Cocoa}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "loli", "No", rp) })
@@ -509,14 +519,15 @@ module.exports = {
                                 user.data.loli++
                                 var Cocoa = user.data.loli                                
                                 Mongo.writedata(clientDB,user)
-                                Mongo.loadImage(clientDB,"loli","Yes").then((images) => {
+                                Mongo.loadImage(clientDB,"loli","Yes").then(async(images) => {
                                     let num = Math.floor(Math.random() * images.length)
                                     let f = images[num].Title
+                                    let rawurl = await directurl.geturl(images[num].URL)
                                     const chinoEmbed = new Discord.MessageEmbed()
                                         .setColor('#2d9af8')
                                         .setTitle(msg.author.username + " 🔞"+h.role.mature + h.word.ordered + h.role.loli)
                                         .setURL(images[num].URL)
-                                        .setImage(images[num].URL)
+                                        .setImage(rawurl)
                                         .setTimestamp()
                                         .setFooter(`◆${h.role.loli}${h.word.ordered2}${Cocoa}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "loli", "Yes", rp) })
@@ -557,14 +568,15 @@ module.exports = {
                             user.data.Chen++
                             var Other = user.data.Chen
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"chen","No").then((images) => {
+                            Mongo.loadImage(clientDB,"chen","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.chen)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.chen}${h.word.ordered2}${Other}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Chen", "No", rp) })
@@ -604,14 +616,15 @@ module.exports = {
                             user.data.Nakkar++
                             var Other = user.data.Nakkar
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"nakkar","No").then((images) => {
+                            Mongo.loadImage(clientDB,"nakkar","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.Nakkar)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.Nakkar}${h.word.ordered2}${Other}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Nakkar", "No", rp) })
@@ -651,14 +664,15 @@ module.exports = {
                             user.data.vtuber++
                             var Other = user.data.vtuber
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"vtuber","No").then((images) => {
+                            Mongo.loadImage(clientDB,"vtuber","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.vtuber)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.vtuber}${h.word.ordered2}${Other}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "vtuber", "No", rp) })
@@ -698,14 +712,15 @@ module.exports = {
                             user.data.peko++
                             var Other = user.data.peko
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"peko","No").then((images) => {
+                            Mongo.loadImage(clientDB,"peko","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.peko)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.peko}${h.word.ordered2}${Other}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Pekora", "No", rp) })
@@ -744,14 +759,15 @@ module.exports = {
                             user.data.S1++
                                 var S1 = user.data.S1
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"S1","No").then((images) => {
+                            Mongo.loadImage(clientDB,"S1","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.S1)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.S1}${h.word.ordered2}${S1}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                 msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Rabbit_S1", "No", rp) })
@@ -790,14 +806,15 @@ module.exports = {
                             user.data.S2++
                             var S1 = user.data.S2
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"S2","No").then((images) => {
+                            Mongo.loadImage(clientDB,"S2","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.S2)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.S2}${h.word.ordered2}${S1}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                 msg.channel.send({embeds: [cocoaEmbed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Rabbit_S2", "No", rp) })
@@ -836,14 +853,15 @@ module.exports = {
                             user.data.S3++
                             var S1 = user.data.S3
                             Mongo.writedata(clientDB,user)
-                            Mongo.loadImage(clientDB,"S3","No").then((images) => {
+                            Mongo.loadImage(clientDB,"S3","No").then(async(images) => {
                                 let num = Math.floor(Math.random() * images.length)
                                 let f = images[num].Title
+                                let rawurl = await directurl.geturl(images[num].URL)
                                 const cocoaEmbed = new Discord.MessageEmbed()
                                     .setColor('#2d9af8')
                                     .setTitle(msg.author.username + " " + h.word.ordered + h.role.S3)
                                     .setURL(images[num].URL)
-                                    .setImage(images[num].URL)
+                                    .setImage(rawurl)
                                     .setTimestamp()
                                     .setFooter(`◆${h.role.S3}${h.word.ordered2}${S1}${h.word.time}\n${h.word.copy}\n${h.word.copy_rabbit}`);
                                     S3_(bot,msg,clientDB)
@@ -929,14 +947,15 @@ async function shark0(bot, msg,clientDB,language) {
                         user.data.Shark++ 
                         var Shark = user.data.Shark
                         Mongo.writedata(clientDB,user)
-                        Mongo.loadImage(clientDB,"gura","No").then((images) => {
+                        Mongo.loadImage(clientDB,"gura","No").then(async(images) => {
                             let num = Math.floor(Math.random() * images.length)
                             let f = images[num].Title
+                            let rawurl = await directurl.geturl(images[num].URL)
                             const chinoEmbed = new Discord.MessageEmbed()
                                 .setColor('#2d9af8')
                                 .setTitle(msg.author.username + " " + h.word.ordered + h.role.chino)
                                 .setURL(images[num].URL)
-                                .setImage(images[num].URL)
+                                .setImage(rawurl)
                                 .setTimestamp()
                                 .setFooter(`◆${h.role.gura}${h.word.ordered2}${Shark}${h.word.time}\n${h.word.copy}`);
                                 msg.channel.send({embeds: [chinoEmbed],components: [row]}).then((rp) => {
@@ -967,14 +986,15 @@ async function shark0(bot, msg,clientDB,language) {
                         user.data.Shark++
                         var Shark = user.data.Shark
                         Mongo.writedata(clientDB,user)
-                        Mongo.loadImage(clientDB,"gura","Yes").then((images) => {
+                        Mongo.loadImage(clientDB,"gura","Yes").then(async(images) => {
                             let num = Math.floor(Math.random() * images.length)
                             let f = images[num].Title
+                            let rawurl = await directurl.geturl(images[num].URL)
                             const chino18Embed = new Discord.MessageEmbed()
                                 .setColor('#2d9af8')
                                 .setTitle(msg.author.username + " " + h.word.ordered + h.role.chino)
                                 .setURL(images[num].URL)
-                                .setImage(images[num].URL)
+                                .setImage(rawurl)
                                 .setTimestamp()
                                 .setFooter(`◆${h.role.gura}${h.word.ordered2}${Shark}${h.word.time}\n${h.word.copy}`);
                             msg.channel.send({embeds: [chino18Embed],components: [row]}).then((rp) => {return report(bot, msg,clientDB, f, "Shark", "Yes", rp) })

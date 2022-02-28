@@ -535,6 +535,7 @@ module.exports= {
             if(!message.guild) return message.channel.send(l.error.No_DM)
             if(args[0] == null) {message.channel.send(k.word.mention)}
             else if(args[1] == null || args[1] == "") {message.channel.send(k.word.type_money)}else{
+            if(bot.playing.has(message.author.id)) return message.channel.send("❌請先結束進行的遊戲後再使用此指令!")
             if(isNaN(args[1])) return message.channel.send(l.error.type_number)
             if (args[1] > 50000) return message.channel.send(l.error.less_then+"50000!")
             if (args[1] < 10) return message.channel.send(l.error.more_then+"10!")

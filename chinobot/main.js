@@ -32,6 +32,7 @@ function start() {
     //user&guild cache
     client.UserCache = new Map();
     client.GuildCache = new Map();
+    client.playing = new Map();
     setInterval(() => {
         client.UserCache.clear()
         client.GuildCache.clear()

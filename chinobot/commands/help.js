@@ -23,7 +23,7 @@ module.exports = {
             let BUTTON4 = new Discord.MessageButton().setStyle('LINK')
             let row = new Discord.MessageActionRow().addComponents([
                 BUTTON1.setLabel("點我邀請到你的Server!").setURL('https://discord.com/oauth2/authorize?client_id='+bot.user.id+'&scope=applications.commands%20bot&permissions=1476668478'),
-                BUTTON2.setLabel("官方網站").setURL("https://dckabicord.com/main"),
+                BUTTON2.setLabel("官方網站").setURL("https://chinohelper.xyz/main"),
                 BUTTON3.setLabel("官方群組").setURL("https://discord.gg/P2yg5V2"),
                 BUTTON4.setLabel("官方文檔(Beta)").setURL("https://docs.dckabicord.com/")
             ])
